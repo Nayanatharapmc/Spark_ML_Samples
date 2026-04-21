@@ -24,3 +24,7 @@ build/
 *.log
 *.err
 *.crc
+
+# Local lyrics multiclass assets
+training-set/lyrics/mendeley_dataset.csv
+training-set/lyrics/model/mendeley-7class-logreg/
