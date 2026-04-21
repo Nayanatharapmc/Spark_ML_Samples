@@ -28,7 +28,7 @@ public class SparkContextConfiguration {
                 .set("spark.kryoserializer.buffer.max", kryoserializerBufferMax)
                 .set("spark.kryo.registrationRequired", "false")
                 .set("spark.sql.shuffle.partitions", sqlShufflePartitions)
-                .set("spark.default.parallelism", defaultParallelism);
+            .set("spark.default.parallelism", defaultParallelism);
 
         SparkContext sparkContext = new SparkContext(sparkConf);
 

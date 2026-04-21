@@ -17,3 +17,10 @@ target/
 # Grale
 build/
 .gradle
+
+# Generated outputs
+**/bin/
+*.class
+*.log
+*.err
+*.crc
