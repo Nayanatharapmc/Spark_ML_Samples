@@ -7,6 +7,7 @@ import com.lohika.morning.ml.spark.driver.service.lyrics.GenrePrediction;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.apache.spark.ml.PipelineModel;
 import org.apache.spark.ml.linalg.DenseVector;
@@ -56,7 +57,11 @@ public abstract class CommonLyricsPipeline implements LyricsPipeline {
             System.out.println("Probability: " + probability);
             System.out.println("------------------------------------------------\n");
 
-            return new GenrePrediction(getGenre(prediction).getName(), probability.apply(0), probability.apply(1));
+            Map<String, Double> probabilities = new LinkedHashMap<>();
+            probabilities.put(Genre.METAL.getName(), probability.apply(0));
+            probabilities.put(Genre.POP.getName(), probability.apply(1));
+
+            return new GenrePrediction(getGenre(prediction).getName(), probabilities);
         }
 
         System.out.println("------------------------------------------------\n");

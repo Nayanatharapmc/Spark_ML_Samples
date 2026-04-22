@@ -31,8 +31,8 @@ import org.springframework.stereotype.Component;
 @Component("MendeleyMulticlassPipeline")
 public class MendeleyMulticlassPipeline extends CommonLyricsPipeline {
 
-    @Value("${lyrics.mendeley.csv.path}")
-    private String lyricsMendeleyCsvPath;
+    @Value("${lyrics.merged.csv.path:${lyrics.mendeley.csv.path}}")
+    private String lyricsMergedCsvPath;
 
     private Map<String, Object> modelStatistics = new LinkedHashMap<>();
 
@@ -166,7 +166,7 @@ public class MendeleyMulticlassPipeline extends CommonLyricsPipeline {
 
     @Override
     protected String getModelDirectory() {
-        return getLyricsModelDirectoryPath() + "/mendeley-7class-logreg/";
+        return getLyricsModelDirectoryPath() + "/mendeley-8class-logreg/";
     }
 
     private Dataset<Row> readMendeleyLyrics() {
@@ -174,7 +174,7 @@ public class MendeleyMulticlassPipeline extends CommonLyricsPipeline {
                 .option("header", "true")
                 .option("multiLine", "true")
                 .option("escape", "\"")
-                .csv(lyricsMendeleyCsvPath);
+            .csv(lyricsMergedCsvPath);
 
         Dataset<Row> normalizedColumns = raw;
         for (String column : raw.columns()) {
@@ -195,7 +195,7 @@ public class MendeleyMulticlassPipeline extends CommonLyricsPipeline {
             .withColumn("genre", functions.lower(functions.trim(normalizedColumns.col("genre"))))
             .withColumn("lyrics", functions.trim(normalizedColumns.col("lyrics")))
             .filter(functions.length(normalizedColumns.col("lyrics")).gt(0))
-            .filter(normalizedColumns.col("genre").isin("pop", "country", "blues", "jazz", "reggae", "rock", "hip hop"))
+            .filter(normalizedColumns.col("genre").isin("pop", "country", "blues", "jazz", "reggae", "rock", "hip hop", "soul"))
                 .cache();
 
         filtered.count();

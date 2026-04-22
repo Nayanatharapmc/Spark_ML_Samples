@@ -8,18 +8,6 @@ public class GenrePrediction {
     private String predictedGenre;
     private Map<String, Double> probabilities;
 
-    public GenrePrediction(String genre, Double metalProbability, Double popProbability) {
-        this.predictedGenre = genre;
-        Map<String, Double> binaryProbabilities = new LinkedHashMap<>();
-        if (metalProbability != null) {
-            binaryProbabilities.put("metal", metalProbability);
-        }
-        if (popProbability != null) {
-            binaryProbabilities.put("pop", popProbability);
-        }
-        this.probabilities = binaryProbabilities;
-    }
-
     public GenrePrediction(String genre) {
         this.predictedGenre = genre;
         this.probabilities = new LinkedHashMap<>();

@@ -13,6 +13,17 @@ const resultSection = document.getElementById('resultSection');
 const predictedGenreEl = document.getElementById('predictedGenre');
 const probabilityListEl = document.getElementById('probabilityList');
 
+const EXPECTED_GENRES = [
+  'pop',
+  'country',
+  'blues',
+  'jazz',
+  'reggae',
+  'rock',
+  'hip hop',
+  'soul'
+];
+
 let chartInstance = null;
 
 function setLoading(isLoading) {
@@ -41,6 +52,22 @@ function clearResults() {
   }
 }
 
+function formatPercentage(value) {
+  return `${(Number(value) * 100).toFixed(1)}%`;
+}
+
+function normalizeProbabilities(probabilities) {
+  const normalized = {};
+
+  EXPECTED_GENRES.forEach((genre) => {
+    const raw = probabilities[genre];
+    const numeric = typeof raw === 'number' ? raw : Number(raw);
+    normalized[genre] = Number.isFinite(numeric) ? numeric : 0;
+  });
+
+  return normalized;
+}
+
 function renderProbabilityList(sortedEntries) {
   probabilityListEl.innerHTML = '';
 
@@ -51,7 +78,7 @@ function renderProbabilityList(sortedEntries) {
     genreSpan.textContent = genre;
 
     const valueSpan = document.createElement('span');
-    valueSpan.textContent = Number(value).toFixed(6);
+    valueSpan.textContent = formatPercentage(value);
 
     li.appendChild(genreSpan);
     li.appendChild(valueSpan);
@@ -141,8 +168,8 @@ async function classifyLyrics() {
       throw new Error('Unexpected API response format.');
     }
 
-    const entries = Object.entries(probabilities)
-      .filter(([, value]) => typeof value === 'number' && !Number.isNaN(value));
+    const normalizedProbabilities = normalizeProbabilities(probabilities);
+    const entries = Object.entries(normalizedProbabilities);
 
     if (entries.length === 0) {
       throw new Error('No probability values were returned by the API.');
