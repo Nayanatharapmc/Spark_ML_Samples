@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lyrics Genre Classifier</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <!-- Chart.js from CDN as requested -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <h1>Lyrics Genre Classifier</h1>
+      <p class="subtitle">Classify pasted song lyrics into music genres and view confidence scores visually.</p>
+    </header>
+
+    <section class="card">
+      <label for="lyricsInput" class="label">Paste Lyrics</label>
+      <textarea
+        id="lyricsInput"
+        class="lyrics-input"
+        placeholder="Paste song lyrics here..."
+        rows="10"
+      ></textarea>
+
+      <div class="actions">
+        <button id="classifyBtn" class="btn btn-primary" type="button">Classify Lyrics</button>
+        <button id="clearBtn" class="btn btn-secondary" type="button">Clear</button>
+      </div>
+
+      <p id="loading" class="loading hidden">Classifying lyrics, please wait...</p>
+      <p id="error" class="error hidden" role="alert"></p>
+    </section>
+
+    <section id="resultSection" class="result hidden" aria-live="polite">
+      <div class="predicted-card">
+        <h2>Predicted Genre</h2>
+        <p id="predictedGenre" class="predicted-value">-</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>Genre Probabilities</h3>
+        <canvas id="probabilityChart"></canvas>
+      </div>
+
+      <div class="table-card">
+        <h3>Ranked Probabilities</h3>
+        <ul id="probabilityList" class="probability-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --border: #dbe3ef;
+  --error: #b91c1c;
+  --success-bg: #ecfdf3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+.header {
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.card,
+.chart-card,
+.table-card,
+.predicted-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card {
+  margin-bottom: 16px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.lyrics-input {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  color: var(--text);
+  background: #e5e7eb;
+}
+
+.loading {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.error {
+  margin-top: 12px;
+  color: var(--error);
+  font-weight: 600;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.result {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+.predicted-card {
+  background: var(--success-bg);
+}
+
+.predicted-card h2 {
+  margin: 0 0 8px;
+}
+
+.predicted-value {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.chart-card h3,
+.table-card h3 {
+  margin-top: 0;
+}
+
+.chart-card canvas {
+  margin-top: 8px;
+}
+
+.probability-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.probability-list li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0;
+}
+
+.probability-list li:last-child {
+  border-bottom: none;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 860px) {
+  .result {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .predicted-card {
+    grid-column: 1 / -1;
+  }
+}
